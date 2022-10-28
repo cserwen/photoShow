@@ -10,6 +10,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -65,8 +67,26 @@ public class PictureStore {
         return id;
     }
 
-    public PictureItem getItem(String path) {
-        return new PictureItem();
+    public List<PictureItem> getItemsByPage(long page, long size) {
+        if (size == 0) {
+            size = 1;
+        }
+        int totalSize = getTotalSize();
+        long start = size * (page - 1) + 1;
+        long end = size * page;
+        List<PictureItem> result = new ArrayList<>();
+        for (long i = start; i <= end; i++) {
+            if (i > totalSize) {
+                break;
+            }
+            result.add(picTable.getOrDefault(i, new PictureItem()));
+        }
+
+        return result;
+    }
+
+    public int getTotalSize() {
+        return picTable.size();
     }
 
     public void flush() {

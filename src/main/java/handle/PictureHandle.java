@@ -6,10 +6,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import store.PictureItem;
 import store.PictureStore;
+import utils.GsonUtil;
 import utils.PathUtil;
 import utils.PicUtil;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class PictureHandle {
@@ -45,11 +48,24 @@ public class PictureHandle {
         log.info("success to upload files={}, desc={}", item.getNames(), desc);
     };
 
-    public static Handler getPicListByYear = ctx -> {
-
+    public Handler getPicListByPage = ctx -> {
+        long page = Long.parseLong(ctx.pathParam("page"));
+        long size = Long.parseLong(ctx.pathParam("size"));
+        List<PictureItem> pictureItems = pictureStore.getItemsByPage(page, size);
+        ctx.result(GsonUtil.toJson(pictureItems));
     };
 
-    public static Handler getPictureByPath = ctx -> {
+    public Handler getPrePicture = ctx -> {
+        String name = ctx.pathParam("name");
+        String filePath = PathUtil.getPicturePreviewDirPath() + File.separator + name;
+        ctx.contentType("image/jpeg");
+        ctx.result(new FileInputStream(filePath));
+    };
 
+    public Handler getPicture = ctx -> {
+        String name = ctx.pathParam("name");
+        String filePath = PathUtil.getPictureDirPath() + File.separator + name;
+        ctx.contentType("image/jpeg");
+        ctx.result(new FileInputStream(filePath));
     };
 }

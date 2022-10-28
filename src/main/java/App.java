@@ -27,7 +27,9 @@ public class App {
     private static void initApp() {
         pictureStore = new PictureStore();
         pictureHandle = new PictureHandle(pictureStore);
-        app = Javalin.create(config -> {});
+        app = Javalin.create(config -> {
+            config.http.defaultContentType = "application/json;";
+        });
         registerHandlers();
     }
 
@@ -44,8 +46,9 @@ public class App {
 
     private static void registerHandlers() {
         app.post("/pic/upload", pictureHandle.uploadPicture);
-        app.get("/pic/list", PictureHandle.getPicListByYear);
-        app.get("/pic/{year}/{mouth}/{day}/{pic}", PictureHandle.getPictureByPath);
+        app.get("/pic/list/{size}/{page}", pictureHandle.getPicListByPage);
+        app.get("/pic/preview/{name}", pictureHandle.getPrePicture);
+        app.get("/pic/show/{name}", pictureHandle.getPicture);
     }
 
     private static void shutdown() {
