@@ -10,6 +10,10 @@ public class PathUtil {
         return AppConfig.getStoreRootPath() + File.separator + "pic";
     }
 
+    public static String getConfigDir() {
+        return AppConfig.getStoreRootPath() + File.separator + "cfg";
+    }
+
     public static String getPictureInfoPath() {
         return getPicturePath() + File.separator + ".list.json";
     }
@@ -20,6 +24,10 @@ public class PathUtil {
 
     public static String getPictureDirPath() {
         return getPicturePath() + File.separator + "src";
+    }
+
+    public static String getWaterMarkPic() {
+        return getConfigDir() + "/watermark.png";
     }
 
 }

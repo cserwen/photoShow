@@ -1,31 +1,26 @@
 package store;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class PictureItem {
-    private String name;
-    private String previewPath;
-    private String picturePath;
+    private List<String> names = new ArrayList<>();
+    private final long uploadTime = System.currentTimeMillis();
+    private String desc;
 
-    public String getName() {
-        return name;
+    public List<String> getNames() {
+        return names;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setNames(List<String> names) {
+        this.names = names;
     }
 
-    public String getPreviewPath() {
-        return previewPath;
+    public String getDesc() {
+        return desc;
     }
 
-    public void setPreviewPath(String previewPath) {
-        this.previewPath = previewPath;
-    }
-
-    public String getPicturePath() {
-        return picturePath;
-    }
-
-    public void setPicturePath(String picturePath) {
-        this.picturePath = picturePath;
+    public void setDesc(String desc) {
+        this.desc = desc;
     }
 }
