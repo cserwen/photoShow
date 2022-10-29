@@ -1,5 +1,6 @@
-import handle.PictureHandle;
+import handle.PictureHandler;
 import io.javalin.Javalin;
+import io.javalin.http.staticfiles.Location;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import store.PictureStore;
@@ -12,7 +13,7 @@ public class App {
 
     private static Javalin app;
     public static PictureStore pictureStore;
-    public static PictureHandle pictureHandle;
+    public static PictureHandler pictureHandle;
 
     public static ScheduledExecutorService scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
 
@@ -26,9 +27,10 @@ public class App {
 
     private static void initApp() {
         pictureStore = new PictureStore();
-        pictureHandle = new PictureHandle(pictureStore);
+        pictureHandle = new PictureHandler(pictureStore);
         app = Javalin.create(config -> {
             config.http.defaultContentType = "application/json;";
+            config.staticFiles.add("/static", Location.CLASSPATH);
         });
         registerHandlers();
     }
@@ -48,7 +50,7 @@ public class App {
         app.post("/pic/upload", pictureHandle.uploadPicture);
         app.get("/pic/list/{size}/{page}", pictureHandle.getPicListByPage);
         app.get("/pic/preview/{name}", pictureHandle.getPrePicture);
-        app.get("/pic/show/{name}", pictureHandle.getPicture);
+        app.get("/pic/src/{name}", pictureHandle.getPicture);
     }
 
     private static void shutdown() {

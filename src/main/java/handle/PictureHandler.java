@@ -1,7 +1,6 @@
 package handle;
 
 import io.javalin.http.Handler;
-import io.javalin.util.FileUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import store.PictureItem;
@@ -10,17 +9,19 @@ import utils.GsonUtil;
 import utils.PathUtil;
 import utils.PicUtil;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class PictureHandle {
+public class PictureHandler {
 
-    private final Logger log = LoggerFactory.getLogger(PictureHandle.class);
+    private final Logger log = LoggerFactory.getLogger(PictureHandler.class);
     private PictureStore pictureStore;
 
-    public PictureHandle(PictureStore pictureStore) {
+    public PictureHandler(PictureStore pictureStore) {
         this.pictureStore = pictureStore;
     }
 
@@ -35,11 +36,12 @@ public class PictureHandle {
             String previewPicPath = PathUtil.getPicturePreviewDirPath() + File.separator + fileName;
             item.getNames().add(fileName);
             item.setDesc(desc);
-            // save pic
-            FileUtil.streamToFile(pic.content(), picSavePath);
-            // build preview
             try {
-                PicUtil.buildPreviewPic(picSavePath, previewPicPath);
+                BufferedImage image = ImageIO.read(pic.content());
+                //build preview
+                PicUtil.buildPreviewPic(image, previewPicPath);
+                // save pic
+                PicUtil.addWaterMark(image, picSavePath, image.getWidth(), image.getHeight());
             } catch (Exception e) {
                 log.error("Failed to build preview pic for {}", picSavePath, e);
             }
@@ -59,13 +61,19 @@ public class PictureHandle {
         String name = ctx.pathParam("name");
         String filePath = PathUtil.getPicturePreviewDirPath() + File.separator + name;
         ctx.contentType("image/jpeg");
-        ctx.result(new FileInputStream(filePath));
+        File file = new File(filePath);
+        if (file.exists()) {
+            ctx.result(new FileInputStream(filePath));
+        }
     };
 
     public Handler getPicture = ctx -> {
         String name = ctx.pathParam("name");
         String filePath = PathUtil.getPictureDirPath() + File.separator + name;
         ctx.contentType("image/jpeg");
-        ctx.result(new FileInputStream(filePath));
+        File file = new File(filePath);
+        if (file.exists()) {
+            ctx.result(new FileInputStream(filePath));
+        }
     };
 }
