@@ -35,7 +35,7 @@ public class PictureHandler {
             String picSavePath = PathUtil.getPictureDirPath() + File.separator + fileName;
             String previewPicPath = PathUtil.getPicturePreviewDirPath() + File.separator + fileName;
             item.getNames().add(fileName);
-            item.setDesc(desc);
+            item.setDesc(desc == null ? "" : desc);
             try {
                 BufferedImage image = ImageIO.read(pic.content());
                 //build preview

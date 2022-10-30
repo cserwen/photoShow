@@ -1,3 +1,13 @@
+body {
+    height: 10px;
+    margin:0;
+    padding: 0;
+}
+
+#main {
+    padding: 0 12%;
+}
+
 .pop-window {
     display: flex;
     align-items: center;
@@ -7,13 +17,29 @@
     top: 0;
     width: 100%;
     height: 100%;
-    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.9); /* Fallback color */
     overflow: auto;
+}
+
+.pop-window div {
+    color: #f1f1f1;
+    font-size: 40px;
+}
+
+.pop-window div:hover {
+    cursor: pointer;
 }
 
 .pre-pic {
     max-height: 300px;
-    max-width: 400px;
+    display: inline;
+    margin: 5px 5px;
+    transition: opacity 0.5s;
+}
+
+.pre-pic:hover {
+    opacity: 0.7;
+    transition: opacity 0.5s;
 }
 
 .list-item {
@@ -32,12 +58,31 @@
     position: absolute;
     top: 15px;
     right: 35px;
+}
+
+#last {
     color: #f1f1f1;
-    font-size: 40px;
-    font-weight: bold;
-    border: none;
-    background: none;
-    outline: none;
+    padding: 10px 20px;
+}
+
+#next {
+    color: #f1f1f1;
+    padding: 10px 20px;
+}
+
+.link {
+    text-decoration: none;
+    color: gray;
+}
+
+.link:hover {
+    color: #ff9900;
+    text-decoration: underline;
+}
+
+.top-title {
+    font-size: xxx-large;
+    margin: 20px 0;
 }
 
 

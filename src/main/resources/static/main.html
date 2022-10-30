@@ -8,13 +8,18 @@
     <script src="./js/photo.js"></script>
     <link rel="stylesheet" type="text/css" href="css/main.css">
 </head>
-<body style="height: 10px">
+<body>
 <div id="main">
     <div class="pop-window" style="display: none">
-        <button id="close" onclick="closePop()">&times;</button>
+        <div id="close" onclick="closePop()">&times;</div>
+        <div id="last" onclick="lastPic()">&#8249;</div>
         <img id="src-img">
+        <div id="next" onclick="nextPic()">&#8250;</div>
     </div>
-    <ul id="image-list"></ul>
+    <div class="top-title">
+        小邓和小徐的记忆馆
+    </div>
+    <div id="image-list"></div>
 </div>
 <div style="left: calc(50% - 120px);">
     <div style="width: 100%; text-align: center; color: grey;">
