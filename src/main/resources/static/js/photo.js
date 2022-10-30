@@ -13,7 +13,7 @@ class Photo {
                     for (let i = 0; i < data.length; i++) {
                         let name = data[i].names[0]
                         let prv = './pic/preview/' + name;
-                        $(this.wraper).append(`<li><img src="${prv}" alt="${name}" class='pre-pic' onclick='showImg("${name}")'></li>`)
+                        $(this.wraper).append(`<li class="list-item"><img src="${prv}" alt="${name}" class='pre-pic' onclick='showImg("${name}")'></li>`)
                     }
                     this.hasNext = true;
                 } else {
