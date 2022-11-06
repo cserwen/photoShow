@@ -1,6 +1,6 @@
-package config;
+package com.cserwen.photo.config;
 
-import constants.ConfigKey;
+import com.cserwen.photo.constants.ConfigKey;
 
 import java.util.ResourceBundle;
 

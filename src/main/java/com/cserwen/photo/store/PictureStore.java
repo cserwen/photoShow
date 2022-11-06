@@ -1,10 +1,10 @@
-package store;
+package com.cserwen.photo.store;
 
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import utils.GsonUtil;
-import utils.PathUtil;
+import com.cserwen.photo.utils.GsonUtil;
+import com.cserwen.photo.utils.PathUtil;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -21,6 +21,16 @@ public class PictureStore {
     private AtomicLong counter = new AtomicLong();
 
     public boolean load() {
+        File preDir = new File(PathUtil.getPicturePreviewDirPath());
+        if (!preDir.exists()) {
+            preDir.mkdirs();
+        }
+
+        File srcDir = new File(PathUtil.getPictureDirPath());
+        if (!srcDir.exists()) {
+            srcDir.mkdirs();
+        }
+
         String fileName = PathUtil.getPictureInfoPath();
         try {
             File file = new File(fileName);
@@ -72,11 +82,11 @@ public class PictureStore {
             size = 1;
         }
         int totalSize = getTotalSize();
-        long start = size * (page - 1) + 1;
-        long end = size * page;
+        long start = totalSize - size * page + 1;
+        long end = totalSize - size * (page - 1);
         List<PictureItem> result = new ArrayList<>();
-        for (long i = start; i <= end; i++) {
-            if (i > totalSize) {
+        for (long i = end; i >= start; i--) {
+            if (i <= 0) {
                 break;
             }
             result.add(picTable.getOrDefault(i, new PictureItem()));

@@ -1,4 +1,4 @@
-package constants;
+package com.cserwen.photo.constants;
 
 public class ConfigKey {
 

@@ -1,4 +1,4 @@
-package utils;
+package com.cserwen.photo.utils;
 
 import com.google.gson.Gson;
 

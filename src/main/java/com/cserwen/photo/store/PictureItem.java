@@ -1,4 +1,4 @@
-package store;
+package com.cserwen.photo.store;
 
 import java.util.ArrayList;
 import java.util.List;

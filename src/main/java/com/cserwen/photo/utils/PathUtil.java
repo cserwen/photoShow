@@ -1,6 +1,6 @@
-package utils;
+package com.cserwen.photo.utils;
 
-import config.AppConfig;
+import com.cserwen.photo.config.AppConfig;
 
 import java.io.File;
 

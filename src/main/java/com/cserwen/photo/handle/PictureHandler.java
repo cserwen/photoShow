@@ -1,13 +1,13 @@
-package handle;
+package com.cserwen.photo.handle;
 
 import io.javalin.http.Handler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import store.PictureItem;
-import store.PictureStore;
-import utils.GsonUtil;
-import utils.PathUtil;
-import utils.PicUtil;
+import com.cserwen.photo.store.PictureItem;
+import com.cserwen.photo.store.PictureStore;
+import com.cserwen.photo.utils.GsonUtil;
+import com.cserwen.photo.utils.PathUtil;
+import com.cserwen.photo.utils.PicUtil;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -54,7 +54,8 @@ public class PictureHandler {
         long page = Long.parseLong(ctx.pathParam("page"));
         long size = Long.parseLong(ctx.pathParam("size"));
         List<PictureItem> pictureItems = pictureStore.getItemsByPage(page, size);
-        ctx.result(GsonUtil.toJson(pictureItems));
+        String res = GsonUtil.toJson(pictureItems);
+        ctx.result(res);
     };
 
     public Handler getPrePicture = ctx -> {

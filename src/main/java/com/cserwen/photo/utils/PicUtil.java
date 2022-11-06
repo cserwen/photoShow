@@ -1,6 +1,6 @@
-package utils;
+package com.cserwen.photo.utils;
 
-import config.AppConfig;
+import com.cserwen.photo.config.AppConfig;
 import net.coobird.thumbnailator.Thumbnails;
 import net.coobird.thumbnailator.geometry.Positions;
 
