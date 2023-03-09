@@ -28,3 +28,4 @@ java -jar photoShow-1.0-SNAPSHOT-jar-with-dependencies.jar
 curl -F "desc=描述" -F "pics=@${image path}" -F "pics=@${image path}" http://localhost:13319/pic/upload
 
 ```
+replace `${image path}` with real path of pics.
