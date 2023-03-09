@@ -1,5 +1,4 @@
-#PhotoShow
---- 
+# PhotoShow
 
 ## How to run? 
 - JDK version: 11
